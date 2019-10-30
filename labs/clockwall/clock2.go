@@ -1,35 +1,49 @@
-// Clock2 is a concurrent TCP server that periodically writes the time.
 package main
 
 import (
+	"bufio"
+	"fmt"
 	"io"
 	"log"
 	"net"
+	"os"
+	"strings"
 	"time"
 )
 
-func handleConn(c net.Conn) {
-	defer c.Close()
+func main() {
+	zones := make(map[string]string)
+
+	for _, arg := range os.Args[1:] {
+		tokens := strings.Split(arg, "=")
+		zones[tokens[0]] = tokens[1]
+	}
+
+	for k, v := range zones {
+		time.Sleep(300 * time.Millisecond)
+		go dial(k, v)
+	}
+
 	for {
-		_, err := io.WriteString(c, time.Now().Format("15:04:05\n"))
-		if err != nil {
-			return // e.g., client disconnected
-		}
-		time.Sleep(1 * time.Second)
 	}
 }
 
-func main() {
-	listener, err := net.Listen("tcp", "localhost:9090")
+func dial(city string, addr string) {
+	conn, err := net.Dial("tcp", addr)
 	if err != nil {
 		log.Fatal(err)
 	}
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			log.Print(err) // e.g., connection aborted
-			continue
+	defer conn.Close()
+	copyTime(os.Stdout, conn, city)
+}
+
+func copyTime(dst io.Writer, src io.Reader, city string) {
+	s := bufio.NewScanner(src)
+	for s.Scan() {
+		if err := s.Err(); err != nil {
+			log.Fatal(err)
 		}
-		go handleConn(conn) // handle connections concurrently
+		fmt.Fprintf(dst, "%10s: %s\n", city, s.Text())
 	}
 }
+
