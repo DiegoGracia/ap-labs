@@ -1,49 +1,54 @@
+// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
+// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+// See page 222.
+
+// Clock is a TCP server that periodically writes the time.
 package main
 
 import (
-	"bufio"
-	"fmt"
+	"flag"
 	"io"
 	"log"
 	"net"
 	"os"
-	"strings"
 	"time"
 )
 
-func main() {
-	zones := make(map[string]string)
-
-	for _, arg := range os.Args[1:] {
-		tokens := strings.Split(arg, "=")
-		zones[tokens[0]] = tokens[1]
-	}
-
-	for k, v := range zones {
-		time.Sleep(300 * time.Millisecond)
-		go dial(k, v)
-	}
-
+func handleConn(c net.Conn, l *time.Location) {
+	defer c.Close()
 	for {
+		_, err := io.WriteString(c, time.Now().In(l).Format("15:04:05\n"))
+		if err != nil {
+			return // e.g., client disconnected
+		}
+		time.Sleep(1 * time.Second)
 	}
 }
 
-func dial(city string, addr string) {
-	conn, err := net.Dial("tcp", addr)
+func main() {
+
+	strPtr := flag.String("port", "8000", "network port to listen on")
+	flag.Parse()
+
+	loc, err := time.LoadLocation(os.Getenv("TZ"))
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
+
+	listener, err := net.Listen("tcp", "localhost:"+*strPtr)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer conn.Close()
-	copyTime(os.Stdout, conn, city)
-}
-
-func copyTime(dst io.Writer, src io.Reader, city string) {
-	s := bufio.NewScanner(src)
-	for s.Scan() {
-		if err := s.Err(); err != nil {
-			log.Fatal(err)
+	//!+
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Print(err) // e.g., connection aborted
+			continue
 		}
-		fmt.Fprintf(dst, "%10s: %s\n", city, s.Text())
+		go handleConn(conn, loc) // handle connections concurrently
 	}
+	//!-
 }
-
