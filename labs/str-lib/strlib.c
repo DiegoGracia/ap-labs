@@ -1,45 +1,42 @@
-//Diego Armando Gracia Hinojosa
-//A01229716
+int mystrlen(char *str);
+char *mystradd(char *origin, char *addition);
+int mystrfind(char *origin, char *substr);
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
 int mystrlen(char *str){
-    int n;
-    for (n = 0; *str != '\0'; str++) {
-        n++;
+    int i = 0;
+    while(str[i] != '\0'){
+        i++;
     }
-
-    return n;
+    return i;
 }
 
 char *mystradd(char *origin, char *addition){
-    char* result = malloc(sizeof(char)*mystrlen(origin) + mystrlen(addition));
-    strcpy(result, origin);
-    strcpy(result + mystrlen(origin), addition);
-    return result;
+
+    int originLen = mystrlen(origin);
+    int i;
+    for(i = 0; addition[i] != '\0'; i++){
+        origin[originLen + i] = addition[i];
+    }
+    origin[originLen + i] = '\0';
+    return origin;
 }
 
 int mystrfind(char *origin, char *substr){
-    int n;
-    int o;
-    int tempn;
-    int res = 0;
-    for (n = 0; origin[n] != '\0'; n++) {
-        tempn = n;
-        for (o = 0; substr[o] != '\0'; o++){
-            if (origin[tempn] == substr[o]) {
-                tempn++;
-                res = 1;
-            } else {
-                res = 0;
-                break;
-            }
+    int originLen = mystrlen(origin);
+    int substrLen = mystrlen(substr);
+    int j = 0;
+    for(int i = 0; i <= originLen; i++){
+        if(origin[i] == substr[0] && j < 1){
+            j++;
+        } else if(origin[i] == substr[j]){
+            j++;
+        } else {
+            j = 0;
         }
-        if (res == 1) {
+        if(j >= substrLen){
             return 1;
         }
     }
-    return res;
+    return 0;
 }
