@@ -47,3 +47,4 @@ func copyTime(dst io.Writer, src io.Reader, city string) {
 		fmt.Fprintf(dst, "%10s: %s\n", city, s.Text())
 	}
 }
+
