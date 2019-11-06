@@ -1,3 +1,4 @@
+//clockWall listens to multiple clock servers concurrently
 package main
 
 import (
