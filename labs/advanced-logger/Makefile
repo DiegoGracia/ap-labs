@@ -1,9 +1,8 @@
-SHELL    = /bin/bash
 CC       = gcc
 CFLAGS   = -Wall
 LDFLAGS  =
-OBJFILES = generic_merge_sort.o
-TARGET   = generic_merge_sort
+OBJFILES = logger.o testLogger.o
+TARGET   = testLogger
 
 all: $(TARGET)
 

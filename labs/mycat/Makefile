@@ -1,8 +1,9 @@
+SHELL    = /bin/bash
 CC       = gcc
 CFLAGS   = -Wall
 LDFLAGS  =
-OBJFILES = logger.o testLogger.o
-TARGET   = testLogger
+OBJFILES = cat2.o
+TARGET   = mycat
 
 all: $(TARGET)
 
@@ -11,3 +12,5 @@ $(TARGET) : $(OBJFILES)
 
 clean:
 	rm -f $(OBJFILES) $(TARGET) *~
+
+include ../common.mk
