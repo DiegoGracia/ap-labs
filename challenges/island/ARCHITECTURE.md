@@ -8,6 +8,8 @@
 
 The program is just to displa the information so the user can read it and undestand it.
 
+![use_case](Untitled Diagram.png)
+
 ## How to use it
 
 1.- **choose the number of balls:** the user can be able to choose the number of balls falling into the island 
