@@ -8,7 +8,7 @@
 
 The program is just to displa the information so the user can read it and undestand it.
 
-![use_case](island/Untitled Diagram.png)
+![use_case](imagenes/Untitled Diagram.png)
 
 ## How to use it
 
