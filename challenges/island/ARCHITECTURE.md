@@ -7,8 +7,7 @@
 ## USE CASE
 
 The program is just to displa the information so the user can read it and undestand it.
-
-![use_case](imagenes/Untitled Diagram.png)
+https://github.com/DiegoGracia/ap-labs/blob/isla/challenges/island/Untitled%20Diagram.png
 
 ## How to use it
 
