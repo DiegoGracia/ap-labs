@@ -1,6 +1,6 @@
-#Rainin balls on an island
+##Rainin balls on an island
 
-## Authos
+## Authors
  Diego Armando Gracia Hinojosa
  Eduardo Alonso
  
