@@ -85,3 +85,4 @@ int main ()
 	printf("\n pi is %f in %f seconds %d thrds \n",pi,run_time,j);
     }
 }
+
