@@ -1,14 +1,14 @@
-##Rainin balls on an island
+## Rainin balls on an island
 
 ## Authors
  Diego Armando Gracia Hinojosa
  Eduardo Alonso
  
-##USE CASE
+## USE CASE
 
 The program is just to displa the information so the user can read it and undestand it.
 
-##How to use it
+## How to use it
 
 1.- **choose the number of balls:** the user can be able to choose the number of balls falling into the island 
 the value of the movement is base on the height.
@@ -24,18 +24,18 @@ the value of the movement is base on the height.
 6.- **Know if the ball gets to the sea**
 
 
-##Architecture
+## Architecture
 
 The prgoram is just one clas that you run on Go.
 
 You dont need anithyng else to run it.
 
-##Multithreading
+## Multithreading
 
 we have a function in charge of starting the multithreading that creating a goroutines 
 and we have a variable that works letting the progaram know if it its over.
 
-##process
+## process
 
 **Size of the map** you can choose the size of the map in the terminal
 
