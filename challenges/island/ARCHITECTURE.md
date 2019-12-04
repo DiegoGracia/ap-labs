@@ -36,7 +36,12 @@ You dont need anithyng else to run it.
 we have a function in charge of starting the multithreading that creating a goroutines 
 and we have a variable that works letting the progaram know if it its over.
 
+
+
+
 ## process
+
+![Untitled Diagram (1)](https://user-images.githubusercontent.com/17838196/70181646-ed9c1480-16a7-11ea-9552-45d6c44408c9.png)
 
 **Size of the map** you can choose the size of the map in the terminal
 
